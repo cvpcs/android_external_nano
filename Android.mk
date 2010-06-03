@@ -29,7 +29,7 @@ LOCAL_C_INCLUDES += \
 LOCAL_CFLAGS += \
 	-DHAVE_CONFIG_H \
 	-DLOCALEDIR=\"/data/locale\" \
-	-DSYSCONFDIR=\"/system/etc\"
+	-DSYSCONFDIR=\"/system/etc/nano\"
 LOCAL_SHARED_LIBRARIES += \
 	libncurses
 LOCAL_STATIC_LIBRARIES += \
@@ -37,6 +37,21 @@ LOCAL_STATIC_LIBRARIES += \
 LOCAL_MODULE := nano
 LOCAL_MODULE_PATH := $(TARGET_OUT_OPTIONAL_EXECUTABLES)
 include $(BUILD_EXECUTABLE)
+
+
+# ========================================================
+# nano configs
+# ========================================================
+etc_files := $(shell ls -1 $(LOCAL_PATH)/etc/)
+
+copy_to := $(addprefix $(TARGET_OUT)/etc/$(LOCAL_MODULE)/,$(etc_files))
+copy_from := $(addprefix $(LOCAL_PATH)/etc/,$(etc_files))
+
+$(copy_to) : PRIVATE_MODULE := system_etcdir
+$(copy_to) : $(TARGET_OUT)/etc/$(LOCAL_MODULE)/% : $(LOCAL_PATH)/etc/% | $(ACP)
+	$(transform-prebuilt-to-target)
+
+ALL_PREBUILT += $(copy_to)
 
 # ========================================================
 include $(call all-makefiles-under,$(LOCAL_PATH))
