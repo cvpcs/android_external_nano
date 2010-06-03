@@ -66,10 +66,10 @@
 /* #undef HAVE_DOPRNT */
 
 /* Define to 1 if you have the `getdelim' function. */
-#define HAVE_GETDELIM 1
+/* #undef HAVE_GETDELIM */
 
 /* Define to 1 if you have the `getline' function. */
-#define HAVE_GETLINE 1
+/* #undef HAVE_GETLINE */
 
 /* Define to 1 if you have the <getopt.h> header file. */
 #define HAVE_GETOPT_H 1

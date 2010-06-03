@@ -22,13 +22,18 @@ LOCAL_SRC_FILES:= \
 	src/utils.c \
 	src/winio.c
 LOCAL_C_INCLUDES += \
-	$(LOCAL_PATH)
+	$(LOCAL_PATH) \
+	external/clearsilver \
+	external/clearsilver/util/regex \
+	external/libncurses/include
 LOCAL_CFLAGS += \
 	-DHAVE_CONFIG_H \
 	-DLOCALEDIR=\"/data/locale\" \
 	-DSYSCONFDIR=\"/system/etc\"
 LOCAL_SHARED_LIBRARIES += \
 	libncurses
+LOCAL_STATIC_LIBRARIES += \
+	libclearsilverregex
 LOCAL_MODULE := nano
 LOCAL_MODULE_PATH := $(TARGET_OUT_OPTIONAL_EXECUTABLES)
 include $(BUILD_EXECUTABLE)
