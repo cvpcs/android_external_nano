@@ -2237,11 +2237,13 @@ char *real_dir_from_tilde(const char *buf)
 	    tilde_dir = mallocstrncpy(NULL, buf, i + 1);
 	    tilde_dir[i] = '\0';
 
+#ifndef __BIONIC__
 	    do {
 		userdata = getpwent();
 	    } while (userdata != NULL && strcmp(userdata->pw_name,
 		tilde_dir + 1) != 0);
 	    endpwent();
+#endif
 	    if (userdata != NULL)
 		tilde_dir = mallocstrcpy(tilde_dir, userdata->pw_dir);
 	}
